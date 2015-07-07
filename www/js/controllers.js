@@ -41,41 +41,16 @@ angular.module('starter.controllers', [])
     };
   })
 
-  .controller('PlaylistsCtrl', function ($scope, $ionicActionSheet, $timeout) {
-    $scope.playlists = [
-      {title: 'Reggae', id: 1},
-      {title: 'Chill', id: 2},
-      {title: 'Dubstep', id: 3},
-      {title: 'Indie', id: 4},
-      {title: 'Rap', id: 5},
-      {title: 'Cowbell', id: 6}
-    ];
-
-    // Triggered on a button click, or some other target
-    $scope.show = function() {
-
-      // Show the action sheet
-      var hideSheet = $ionicActionSheet.show({
-        buttons: [
-          { text: '<b>Share</b> This' },
-          { text: 'Move' }
-        ],
-        destructiveText: 'Delete',
-        titleText: 'Modify your album',
-        cancelText: 'Cancel',
-        cancel: function() {
-          // add cancel code..
-        },
-        buttonClicked: function(index) {
-          return true;
-        }
-      });
-
-      // For example's sake, hide the sheet after two seconds
-      $timeout(function() {
-        hideSheet();
-      }, 2000);
+  .controller('PlaylistsCtrl', function ($scope) {
+    $scope.data = {
+      'searchRadius' : '5',
+      'listingsPerPage':20,
+      'zipCode': '90012'
     };
+
+    $scope.$watch('data', function () {
+      console.info("A value has changed");
+    }, true);
   })
 
   .controller('PlaylistCtrl', function ($scope, $stateParams) {

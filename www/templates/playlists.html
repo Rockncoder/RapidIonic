@@ -1,8 +1,33 @@
-<ion-view view-title="Playlists">
+<ion-view view-title="Settings">
   <ion-content>
     <ion-list>
-      <ion-item ng-repeat="playlist in playlists" ng-click="show({{playlist.id}})">
-        {{playlist.title}}
+      <ion-item class="range range-positive">
+        <span>1</span>
+        <input type="range" name="searchRadius" min="1" max="10" ng-model="data.searchRadius">
+        <span>10</span>
+      </ion-item>
+      <ion-item>
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Listings Per Page
+          </div>
+          <select name="listingsPerPage" ng-model="data.listingsPerPage">
+            <option value="5"> 5 listings</option>
+            <option value="10">10 listings</option>
+            <option value="15">15 listings</option>
+            <option value="20">20 listings</option>
+            <option value="30">30 listings</option>
+          </select>
+        </label>
+      </ion-item>
+      <ion-item class="item item-input">
+        <span class="input-label">ZIP Code</span>
+        <input type="text" name="listingsPerPage" ng-model="data.zipCode" >
+      </ion-item>
+      <ion-item>
+        <p>Radius : {{data.searchRadius}}</p>
+        <p>Per Page : {{data.listingsPerPage}}</p>
+        <p>ZIP Code : {{data.zipCode}}</p>
       </ion-item>
     </ion-list>
   </ion-content>
