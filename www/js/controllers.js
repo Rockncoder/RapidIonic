@@ -41,7 +41,7 @@ angular.module('starter.controllers', [])
     };
   })
 
-  .controller('PlaylistsCtrl', function ($scope, Settings) {
+  .controller('PlaylistsCtrl', function ($scope, Settings, localStorageService) {
     $scope.data = {
       'searchRadius': Settings.searchRadius,
       'listingsPerPage': Settings.listingsPerPage,
@@ -53,6 +53,7 @@ angular.module('starter.controllers', [])
       Settings.searchRadius = $scope.data.searchRadius;
       Settings.listingsPerPage = $scope.data.listingsPerPage;
       Settings.zipCode = $scope.data.zipCode;
+      localStorageService.set('data', $scope.data);
     }, true);
   })
 
