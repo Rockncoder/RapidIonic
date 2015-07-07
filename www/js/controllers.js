@@ -55,12 +55,6 @@ angular.module('starter.controllers', [])
   .controller('PlaylistCtrl', function ($scope, $stateParams) {
   })
 
-  .controller('ListingsController', function ($scope) {
-    $scope.listings = [
-      {businessName: 'Alpha Coffee Shop'},
-      {businessName: 'Beta Coffee Shop'},
-      {businessName: 'Gamma Coffee Shop'},
-      {businessName: 'Delta Coffee Shop'},
-      {businessName: 'Epsilon Coffee Shop'}
-    ];
+  .controller('ListingsController', function ($scope, ListingsService) {
+    $scope.listings = ListingsService.getListings();
   });

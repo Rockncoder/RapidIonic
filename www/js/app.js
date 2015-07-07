@@ -79,4 +79,21 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       });
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/playlists');
+  })
+  .service('ListingsService', function () {
+    var listings = [
+      {businessName: 'Alpha Coffee Shop'},
+      {businessName: 'Beta Coffee Shop'},
+      {businessName: 'Gamma Coffee Shop'},
+      {businessName: 'Delta Coffee Shop'},
+      {businessName: 'Epsilon Coffee Shop'}
+    ];
+
+    return {
+      getListings: getListings
+    };
+
+    function getListings() {
+      return listings;
+    }
   });
