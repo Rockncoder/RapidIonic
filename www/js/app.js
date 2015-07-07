@@ -91,13 +91,21 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     };
 
     function filterOutMetaData(data) {
-      var listings = [];
-
+      var meta, listings = [];
       try {
+        meta = data.searchResult.metaProperties;
         listings = data.searchResult.searchListings.searchListing;
+        if (listings && meta) {
+          listings.totalAvailable = meta.totalAvailable;
+          listings.totalPages = Math.ceil(listings.totalAvailable / listingsPerPage);
+        } else {
+          listings.totalAvailable = 0;
+          listings.totalPages = 0;
+        }
       }
       catch (ex) {
       }
+
       return listings;
     }
 

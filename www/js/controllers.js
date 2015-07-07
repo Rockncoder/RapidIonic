@@ -56,8 +56,24 @@ angular.module('starter.controllers', [])
   })
 
   .controller('ListingsController', function ($scope, ListingsService) {
+    var currentPage = 0;
     $scope.listings = [];
-    ListingsService.getListings().then(function (listings) {
+    $scope.canShowMore = true;
+
+    ListingsService.getListings(currentPage).then(function (listings) {
       $scope.listings = listings;
+      currentPage++;
     });
+
+    $scope.loadMore = function () {
+      ListingsService.getListings(currentPage).then(function (listings) {
+        if (listings.length === 0) {
+          $scope.canShowMore = false;
+        } else {
+          $scope.listings = $scope.listings.concat(listings);
+          currentPage++;
+        }
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      });
+    };
   });
