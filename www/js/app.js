@@ -80,7 +80,14 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/playlists');
   })
-  .service('ListingsService', function ($http, $q, YP_API_KEY) {
+  .value("Settings", {
+    'searchRadius': '5',
+    'listingsPerPage': 20,
+    'zipCode': '90012',
+    'location': '',
+    'useZipCode': true
+  })
+  .service('ListingsService', function ($http, $q, YP_API_KEY, Settings) {
     var listingsPerPage = 20,
       location = '90012',
       radius = 5,
@@ -114,9 +121,9 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         deferred = $q.defer();
 
       currentPage = currentPage || 0;
-      url = YP_BASE_ADDRESS + location + '&pagenum=' + currentPage +
-        '&term=coffee' + '&radius=' + 5 +
-        '&listingcount=' + listingsPerPage + '&key=' + YP_API_KEY;
+      url = YP_BASE_ADDRESS + Settings.zipCode + '&pagenum=' + currentPage +
+        '&term=coffee' + '&radius=' + Settings.searchRadius +
+        '&listingcount=' + Settings.listingsPerPage + '&key=' + YP_API_KEY;
 
       $http.get(url)
         .success(function (data) {

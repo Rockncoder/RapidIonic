@@ -41,15 +41,18 @@ angular.module('starter.controllers', [])
     };
   })
 
-  .controller('PlaylistsCtrl', function ($scope) {
+  .controller('PlaylistsCtrl', function ($scope, Settings) {
     $scope.data = {
-      'searchRadius' : '5',
-      'listingsPerPage':20,
-      'zipCode': '90012'
+      'searchRadius': Settings.searchRadius,
+      'listingsPerPage': Settings.listingsPerPage,
+      'zipCode': Settings.zipCode
     };
 
     $scope.$watch('data', function () {
       console.info("A value has changed");
+      Settings.searchRadius = $scope.data.searchRadius;
+      Settings.listingsPerPage = $scope.data.listingsPerPage;
+      Settings.zipCode = $scope.data.zipCode;
     }, true);
   })
 
