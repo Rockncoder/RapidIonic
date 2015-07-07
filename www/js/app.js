@@ -80,20 +80,51 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/playlists');
   })
-  .service('ListingsService', function () {
-    var listings = [
-      {businessName: 'Alpha Coffee Shop'},
-      {businessName: 'Beta Coffee Shop'},
-      {businessName: 'Gamma Coffee Shop'},
-      {businessName: 'Delta Coffee Shop'},
-      {businessName: 'Epsilon Coffee Shop'}
-    ];
+  .service('ListingsService', function ($http, $q, YP_API_KEY) {
+    var listingsPerPage = 20,
+      location = '90012',
+      radius = 5,
+      YP_BASE_ADDRESS = 'http://pubapi.yp.com/search-api/search/devapi/search?format=json&sort=distance&searchloc=';
 
     return {
       getListings: getListings
     };
 
-    function getListings() {
+    function filterOutMetaData(data) {
+      var listings = [];
+
+      try {
+        listings = data.searchResult.searchListings.searchListing;
+      }
+      catch (ex) {
+      }
       return listings;
+    }
+
+    function getListings(currentPage) {
+      var url,
+        deferred = $q.defer();
+
+      currentPage = currentPage || 0;
+      url = YP_BASE_ADDRESS + location + '&pagenum=' + currentPage +
+        '&term=coffee' + '&radius=' + 5 +
+        '&listingcount=' + listingsPerPage + '&key=' + YP_API_KEY;
+
+      $http.get(url)
+        .success(function (data) {
+          var listings = filterOutMetaData(data);
+
+          if (listings && listings.length) {
+            deferred.resolve(listings);
+          } else {
+            console.log('Error no search listings returned');
+            deferred.reject();
+          }
+        })
+        .error(function (data, status) {
+          console.log('Error while making call');
+          deferred.reject();
+        });
+      return deferred.promise;
     }
   });
