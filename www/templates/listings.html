@@ -5,8 +5,12 @@
       </ion-refresher>
 
       <ion-item ng-repeat="item in listings">
-        {{item.businessName}}
+        <div class="row">{{item.businessName}}</div>
+        <div class="row">{{item.street}}</div>
+        <div class="row">{{item.city}},&nbsp;{{item.state}}&nbsp;{{item.zip}}</div>
+        <div class="row"><a ng-href="tel:{{item.phone}}">{{item.phone}}</a></div>
       </ion-item>
+
       <ion-infinite-scroll ng-if="canShowMore"
                            on-infinite="loadMore()"
                            distance="10%">
