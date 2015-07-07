@@ -60,10 +60,11 @@ angular.module('starter.controllers', [])
     $scope.listings = [];
     $scope.canShowMore = true;
 
-    ListingsService.getListings(currentPage).then(function (listings) {
-      $scope.listings = listings;
-      currentPage++;
-    });
+    function init() {
+      ListingsService.getListings(currentPage).then(function (listings) {
+        $scope.listings = listings;
+      });
+    }
 
     $scope.loadMore = function () {
       ListingsService.getListings(currentPage).then(function (listings) {
@@ -76,4 +77,15 @@ angular.module('starter.controllers', [])
         $scope.$broadcast('scroll.infiniteScrollComplete');
       });
     };
+
+    $scope.refresh = function () {
+      $scope.listings = [];
+      currentPage = 0;
+      // Stop the ion-refresher from spinning
+      $scope.$broadcast('scroll.refreshComplete');
+
+      init();
+    };
+
+    init();
   });
