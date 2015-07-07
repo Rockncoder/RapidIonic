@@ -41,7 +41,7 @@ angular.module('starter.controllers', [])
     };
   })
 
-  .controller('PlaylistsCtrl', function ($scope) {
+  .controller('PlaylistsCtrl', function ($scope, $ionicActionSheet, $timeout) {
     $scope.playlists = [
       {title: 'Reggae', id: 1},
       {title: 'Chill', id: 2},
@@ -50,6 +50,32 @@ angular.module('starter.controllers', [])
       {title: 'Rap', id: 5},
       {title: 'Cowbell', id: 6}
     ];
+
+    // Triggered on a button click, or some other target
+    $scope.show = function() {
+
+      // Show the action sheet
+      var hideSheet = $ionicActionSheet.show({
+        buttons: [
+          { text: '<b>Share</b> This' },
+          { text: 'Move' }
+        ],
+        destructiveText: 'Delete',
+        titleText: 'Modify your album',
+        cancelText: 'Cancel',
+        cancel: function() {
+          // add cancel code..
+        },
+        buttonClicked: function(index) {
+          return true;
+        }
+      });
+
+      // For example's sake, hide the sheet after two seconds
+      $timeout(function() {
+        hideSheet();
+      }, 2000);
+    };
   })
 
   .controller('PlaylistCtrl', function ($scope, $stateParams) {
