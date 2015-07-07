@@ -56,5 +56,8 @@ angular.module('starter.controllers', [])
   })
 
   .controller('ListingsController', function ($scope, ListingsService) {
-    $scope.listings = ListingsService.getListings();
+    $scope.listings = [];
+    ListingsService.getListings().then(function (listings) {
+      $scope.listings = listings;
+    });
   });
