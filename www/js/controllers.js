@@ -56,5 +56,11 @@ angular.module('starter.controllers', [])
   })
 
   .controller('ListingsController', function ($scope) {
-    $scope.message = 'Hello Ionic';
+    $scope.listings = [
+      {businessName: 'Coffee Shop Alpha'},
+      {businessName: 'Coffee Shop Beta'},
+      {businessName: 'Coffee Shop Gamma'},
+      {businessName: 'Coffee Shop Delta'},
+      {businessName: 'Coffee Shop Epsilon'}
+    ];
   });
