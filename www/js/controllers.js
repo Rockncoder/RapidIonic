@@ -57,10 +57,10 @@ angular.module('starter.controllers', [])
 
   .controller('ListingsController', function ($scope) {
     $scope.listings = [
-      {businessName: 'Coffee Shop Alpha'},
-      {businessName: 'Coffee Shop Beta'},
-      {businessName: 'Coffee Shop Gamma'},
-      {businessName: 'Coffee Shop Delta'},
-      {businessName: 'Coffee Shop Epsilon'}
+      {businessName: 'Alpha Coffee Shop'},
+      {businessName: 'Beta Coffee Shop'},
+      {businessName: 'Gamma Coffee Shop'},
+      {businessName: 'Delta Coffee Shop'},
+      {businessName: 'Epsilon Coffee Shop'}
     ];
   });
